@@ -2,13 +2,14 @@ services:
   backend: 
     build: ./mern/backend
     ports:
-      -"5050:5050"
+      - "5050:5050"
     networks:
       - mern
     environment:
-      MONGO_URI: mongodb://mongo:27017/mydatabase  
+     - MONGO_URI=mongodb://mongodb:27017/employees
     depends_on:
       - mongodb
+    restart: on-failure
     
   frontend:
     build: ./mern/frontend
@@ -24,9 +25,14 @@ services:
     ports:
       - "27017:27017"
     networks:
-      -mern
+      - mern
     volumes:
-      -mongo-data:/data/db
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 networks:
   mern:
