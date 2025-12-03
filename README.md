@@ -1,1 +1,1 @@
-# mern-docker
+MERN 3-Tier Architecture with Docker Compose
