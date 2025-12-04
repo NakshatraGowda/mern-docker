@@ -1,0 +1,43 @@
+services:
+  backend: 
+    build: ./mern/backend
+    ports:
+      - "5050:5050"
+    networks:
+      - mern
+    environment:
+     - MONGO_URI=mongodb://mongodb:27017/employees
+    depends_on:
+      - mongodb
+    restart: on-failure
+    
+  frontend:
+    build: ./mern/frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - mern
+    environment:
+      REACT_APP_API_URL: http://backend:5050 
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - mern
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  mern:
+    driver: bridge
+  
+volumes:
+  mongo-data:
+    driver: local
