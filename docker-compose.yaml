@@ -21,7 +21,7 @@ services:
       REACT_APP_API_URL: http://backend:5050 
 
   mongodb:
-    image: mongo:latest
+    image: mongo:${BUILD_NUMBER}
     ports:
       - "27017:27017"
     networks:
