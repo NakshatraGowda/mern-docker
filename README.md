@@ -22,46 +22,46 @@ All components run as isolated, independently deployable containers with automat
 ┌──────────────────────────────────────────────────────────────┐
 │                   Host Machine (Docker Engine)               │
 ├──────────────────────────────────────────────────────────────┤
-│                                                               │
-│  ┌────────────────── Docker Network (mern) ──────────────┐  │
-│  │ Bridge Driver - Isolated Container Communication      │  │
-│  │                                                        │  │
-│  │  ┌──────────────────────────────────────────────────┐ │  │
-│  │  │ Frontend Container                               │ │  │
-│  │  │ ├─ Image: mern-docker-frontend                  │ │  │
-│  │  │ ├─ Port: 5173:5173 (Host:Container)             │ │  │
-│  │  │ ├─ Network Alias: frontend                      │ │  │
-│  │  │ └─ Volume Mounts: src/, public/                 │ │  │
-│  │  └──────────────────────────────────────────────────┘ │  │
-│  │                                                        │  │
-│  │  ┌──────────────────────────────────────────────────┐ │  │
-│  │  │ Backend Container                                │ │  │
-│  │  │ ├─ Image: mern-docker-backend                   │ │  │
-│  │  │ ├─ Port: 5050:5050 (Host:Container)             │ │  │
-│  │  │ ├─ Network Alias: backend                       │ │  │
-│  │  │ ├─ Env: MONGO_URI=mongodb://mongodb:27017/...   │ │  │
-│  │  │ ├─ Restart Policy: on-failure                   │ │  │
-│  │  │ └─ Depends On: mongodb (health check)           │ │  │
-│  │  └──────────────────────────────────────────────────┘ │  │
-│  │                                                        │  │
-│  │  ┌──────────────────────────────────────────────────┐ │  │
-│  │  │ MongoDB Container                                │ │  │
-│  │  │ ├─ Image: mongo:latest                          │ │  │
-│  │  │ ├─ Port: 27017:27017 (Host:Container)           │ │  │
-│  │  │ ├─ Network Alias: mongodb                       │ │  │
-│  │  │ ├─ Volume: mongo-data:/data/db (Named)          │ │  │
-│  │  │ ├─ Health Check: CMD mongo --eval db.ping()     │ │  │
-│  │  │ └─ Restart Policy: always                       │ │  │
-│  │  └──────────────────────────────────────────────────┘ │  │
-│  │                                                        │  │
-│  └────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌──────────────────── Named Volumes ────────────────────┐  │
-│  │ mongo-data: ├─ /data/db/                             │  │
-│  │             ├─ Persistent storage for MongoDB        │  │
-│  │             └─ Survives container restarts           │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                               │
+│                                                              │
+│  ┌────────────────── Docker Network (mern) ──────────────┐   │
+│  │ Bridge Driver - Isolated Container Communication      │   │
+│  │                                                       │   │
+│  │  ┌──────────────────────────────────────────────────┐ │   │
+│  │  │ Frontend Container                               │ │   │
+│  │  │ ├─ Image: mern-docker-frontend                   │ │   │
+│  │  │ ├─ Port: 5173:5173 (Host:Container)              │ │   │
+│  │  │ ├─ Network Alias: frontend                       │ │   │
+│  │  │ └─ Volume Mounts: src/, public/                  │ │   │
+│  │  └──────────────────────────────────────────────────┘ │   │
+│  │                                                       │   │
+│  │  ┌──────────────────────────────────────────────────┐ │   │
+│  │  │ Backend Container                                │ │   │
+│  │  │ ├─ Image: mern-docker-backend                    │ │   │
+│  │  │ ├─ Port: 5050:5050 (Host:Container)              │ │   │
+│  │  │ ├─ Network Alias: backend                        │ │   │
+│  │  │ ├─ Env: MONGO_URI=mongodb://mongodb:27017/...    │ │   │
+│  │  │ ├─ Restart Policy: on-failure                    │ │   │
+│  │  │ └─ Depends On: mongodb (health check)            │ │   │
+│  │  └──────────────────────────────────────────────────┘ │   │
+│  │                                                       │   │
+│  │  ┌──────────────────────────────────────────────────┐ │   │
+│  │  │ MongoDB Container                                │ │   │
+│  │  │ ├─ Image: mongo:latest                           │ │   │
+│  │  │ ├─ Port: 27017:27017 (Host:Container)            │ │   │
+│  │  │ ├─ Network Alias: mongodb                        │ │   │
+│  │  │ ├─ Volume: mongo-data:/data/db (Named)           │ │   │
+│  │  │ ├─ Health Check: CMD mongo --eval db.ping()      │ │   │
+│  │  │ └─ Restart Policy: always                        │ │   │
+│  │  └──────────────────────────────────────────────────┘ │   │
+│  │                                                       │   │
+│  └───────────────────────────────────────────────────────┘   │
+│                                                              │
+│  ┌──────────────────── Named Volumes ────────────────────┐   │
+│  │ mongo-data: ├─ /data/db/                              │   │
+│  │             ├─ Persistent storage for MongoDB         │   │
+│  │             └─ Survives container restarts            │   │
+│  └────────────────────────────────────────────────────── ┘   │
+│                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -83,7 +83,7 @@ All components run as isolated, independently deployable containers with automat
 - Data persists even when containers are stopped/removed
 - Volumes managed by Docker daemon
 
-## � Docker Images & Containerization
+## Docker Images & Containerization
 
 ### Image Building
 
