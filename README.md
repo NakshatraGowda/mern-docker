@@ -1,6 +1,6 @@
 # MERN 3-Tier Architecture with Docker Compose
 
-A production-ready, fully containerized MERN application demonstrating DevOps best practices through Docker containerization and Docker Compose orchestration. This project serves as a reference implementation for multi-tier microservices architecture using container technology.
+A fully containerized MERN application demonstrating DevOps best practices through Docker containerization and Docker Compose orchestration. This project serves as a reference implementation for multi-tier microservices architecture using container technology.
 
 ## 🎯 Project Overview
 
@@ -640,24 +640,6 @@ For production multi-host deployments, consider:
 - Logging aggregation (ELK stack, CloudWatch)
 - Monitoring and alerting (Prometheus, Grafana)
 
-### Environment-Specific Setup
-
-Create `docker-compose.prod.yml`:
-```yaml
-version: '3.8'
-services:
-  backend:
-    image: myregistry/mern-backend:v1.0
-    restart: always
-    deploy:
-      replicas: 3
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-  # ... other services
-```
-
 Deploy production stack:
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
@@ -755,26 +737,11 @@ docker-compose exec backend wget -O - http://backend:5050
 # Clean up unused images, volumes, networks
 docker system prune -a --volumes
 
-# Remove specific volume
+# Remove specific volume [risky!]
 docker volume rm volume-name
 
 # Monitor disk usage
 du -sh /var/lib/docker/volumes/
-```
-
-### Memory/CPU Issues
-```bash
-# Check resource usage
-docker stats
-
-# Set resource limits in docker-compose.yml
-services:
-  backend:
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
 ```
 
 ## 📚 Application Details
@@ -837,20 +804,6 @@ The frontend is built with React and Vite, providing a fast development experien
 - **Record.jsx**: Individual record display and management
 - **App.jsx**: Root component and main application logic
 
-### 🧪 Testing
-
-The project includes Cypress for end-to-end testing:
-
-```bash
-# Run Cypress tests (open the Cypress test runner)
-docker-compose exec frontend npm run cypress:open
-
-# Or run tests headlessly
-docker-compose exec frontend npm run cypress:run
-```
-
-Test files are located in `mern/frontend/cypress/integration/endToEnd.spec.js`
-
 ### 📦 Application Stack
 
 **Backend**:
@@ -890,21 +843,6 @@ Test files are located in `mern/frontend/cypress/integration/endToEnd.spec.js`
 - **Health Checks**: Automated container health verification and restart policies
 - **Restart Policies**: Fault tolerance through automatic container restart
 - **Dependency Management**: Service startup ordering via depends_on
-
-### DevOps Practices Implemented
-
-| Practice | Implementation |
-|----------|-----------------|
-| **Infrastructure as Code** | `docker-compose.yaml` defines entire stack |
-| **Container Isolation** | Each service runs independently in own container |
-| **Service Discovery** | DNS resolution for inter-container communication |
-| **Data Persistence** | Named volumes for durable storage |
-| **Health Monitoring** | Automated health checks with restart policies |
-| **Scalability** | Multi-container architecture ready for scaling |
-| **Environment Config** | Environment variables for service configuration |
-| **Log Aggregation** | Centralized logging via `docker-compose logs` |
-| **Resource Management** | CPU/memory limits can be configured per container |
-| **Network Isolation** | Custom bridge network for secure communication |
 
 ### Tools & Commands Reference
 
@@ -957,24 +895,10 @@ docker volume rm name             # Remove volume
 docker volume prune               # Remove unused volumes
 ```
 
-## 📚 DevOps Learning Resources
-
-- [Docker Official Documentation](https://docs.docker.com/)
-- [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
-- [Best Practices for Building Container Images](https://docs.docker.com/develop/container-best-practices/)
-- [Container Security](https://docs.docker.com/engine/security/)
-- [Docker Networking Guide](https://docs.docker.com/network/)
-- [Multi-Stage Builds for Optimization](https://docs.docker.com/build/building/multi-stage/)
-- [Kubernetes for Orchestration at Scale](https://kubernetes.io/)
-
-## 📝 License
-
-ISC License
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request or open an Issue for any bugs or feature requests.
 
 ## 📞 Support
 
-For issues or questions, please refer to the [Docker Documentation](https://docs.docker.com/) and [MERN Stack Resources](https://www.mongodb.com/developer/languages/javascript/mern-stack-tutorial/).
+For questions or support, reach out at nakshatra.gowda.2000@gmail.com or https://www.linkedin.com/in/nakshatra-gowda/.
